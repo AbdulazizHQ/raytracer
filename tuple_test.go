@@ -97,11 +97,30 @@ func TestSubVecFromZeroVec(t *testing.T) {
 	}
 }
 
-func TestNegateTuple(t *testing.T) {
-	
+func TestNegateTuple(t *testing.T) {	
 	v := &raytracer.Tuple{1, -2, 3, -4}
 	got := v.Negate()
 	want := &raytracer.Tuple{-1, 2, -3, 4}
+
+	if !got.Equals(want) {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
+func TestScaleUp(t *testing.T) {
+	v := &raytracer.Tuple{1, -2, 3, -4}
+	got := v.Scale(3.5)
+	want := &raytracer.Tuple{3.5, -7, 10.5, -14}
+
+	if !got.Equals(want) {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
+func TestScaleDown(t *testing.T) {
+	v := &raytracer.Tuple{1, -2, 3, -4}
+	got := v.Scale(0.5)
+	want := &raytracer.Tuple{0.5, -1, 1.5, -2}
 
 	if !got.Equals(want) {
 		t.Errorf("got %v want %v", got, want)

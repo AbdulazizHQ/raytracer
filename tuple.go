@@ -41,6 +41,15 @@ func (a *Tuple) Sub(b *Tuple) *Tuple {
 	return a
 }
 
+func (a *Tuple) Scale(alpha float64) *Tuple {
+	a.W *= alpha
+	a.X *= alpha
+	a.Y *= alpha
+	a.Z *= alpha
+
+	return a
+}
+
 func (a *Tuple) Negate() *Tuple {
 	a.W *= -1
 	a.X *= -1
