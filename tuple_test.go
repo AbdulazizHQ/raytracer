@@ -207,3 +207,36 @@ func TestNormalize3(t *testing.T) {
 		t.Errorf("got %v want %v", got, want)
 	}
 }
+
+func TestDot(t *testing.T) {
+	v1 := raytracer.NewVector(1, 2, 3)
+	v2 := raytracer.NewVector(2, 3, 4)
+	got := v1.Dot(v2)
+	want := 20.0
+
+	if math.Abs(got-want) > raytracer.Epsilon {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
+func TestCross1(t *testing.T) {
+	v1 := raytracer.NewVector(1, 2, 3)
+	v2 := raytracer.NewVector(2, 3, 4)
+	got := v1.Cross(v2)
+	want := raytracer.NewVector(-1, 2, -1)
+
+	if !got.Equals(want) {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
+func TestCross2(t *testing.T) {
+	v1 := raytracer.NewVector(1, 2, 3)
+	v2 := raytracer.NewVector(2, 3, 4)
+	got := v2.Cross(v1)
+	want := raytracer.NewVector(1, -2, 1)
+
+	if !got.Equals(want) {
+		t.Errorf("got %v want %v", got, want)
+	}
+}

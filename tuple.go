@@ -87,3 +87,13 @@ func (a *Tuple) Normalize() *Tuple {
 
 	return a
 }
+
+func (a *Tuple) Dot(b *Tuple) float64 {
+	return a.X*b.X + a.Y*b.Y + a.Z*b.Z + a.W*b.W
+}
+
+func (a *Tuple) Cross(b *Tuple) *Tuple {
+	return NewVector(a.Y*b.Z-a.Z*b.Y,
+		a.Z*b.X-a.X*b.Z,
+		a.X*b.Y-a.Y*b.X)
+}
