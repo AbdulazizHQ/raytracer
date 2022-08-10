@@ -1,6 +1,7 @@
 package raytracer_test
 
 import (
+	"math"
 	"testing"
 
 	"alqahtani.io/raytracer"
@@ -97,7 +98,7 @@ func TestSubVecFromZeroVec(t *testing.T) {
 	}
 }
 
-func TestNegateTuple(t *testing.T) {	
+func TestNegateTuple(t *testing.T) {
 	v := &raytracer.Tuple{1, -2, 3, -4}
 	got := v.Negate()
 	want := &raytracer.Tuple{-1, 2, -3, 4}
@@ -123,6 +124,86 @@ func TestScaleDown(t *testing.T) {
 	want := &raytracer.Tuple{0.5, -1, 1.5, -2}
 
 	if !got.Equals(want) {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
+func TestMagnitude1(t *testing.T) {
+	v := raytracer.NewVector(1, 0, 0)
+	got := v.Magnitude()
+	want := 1.0
+
+	if math.Abs(got-want) > raytracer.Epsilon {
+		t.Errorf("got %f want %f", got, want)
+	}
+}
+
+func TestMagnitude2(t *testing.T) {
+	v := raytracer.NewVector(0, 1, 0)
+	got := v.Magnitude()
+	want := 1.0
+
+	if math.Abs(got-want) > raytracer.Epsilon {
+		t.Errorf("got %f want %f", got, want)
+	}
+}
+
+func TestMagnitude3(t *testing.T) {
+	v := raytracer.NewVector(0, 0, 1)
+	got := v.Magnitude()
+	want := 1.0
+
+	if math.Abs(got-want) > raytracer.Epsilon {
+		t.Errorf("got %f want %f", got, want)
+	}
+}
+
+func TestMagnitude4(t *testing.T) {
+	v := raytracer.NewVector(1, 2, 3)
+	got := v.Magnitude()
+	want := math.Sqrt(14.0)
+
+	if math.Abs(got-want) > raytracer.Epsilon {
+		t.Errorf("got %f want %f", got, want)
+	}
+}
+
+func TestMagnitude5(t *testing.T) {
+	v := raytracer.NewVector(-1, -2, -3)
+	got := v.Magnitude()
+	want := math.Sqrt(14.0)
+
+	if math.Abs(got-want) > raytracer.Epsilon {
+		t.Errorf("got %f want %f", got, want)
+	}
+}
+
+func TestNormalize1(t *testing.T) {
+	v := raytracer.NewVector(4, 0, 0)
+	got := v.Normalize()
+	want := raytracer.NewVector(1, 0, 0)
+
+	if !got.Equals(want) {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
+func TestNormalize2(t *testing.T) {
+	v := raytracer.NewVector(1, 2, 3)
+	got := v.Normalize()
+	want := raytracer.NewVector(1.0/math.Sqrt(14), 2.0/math.Sqrt(14), 3.0/math.Sqrt(14))
+
+	if !got.Equals(want) {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
+func TestNormalize3(t *testing.T) {
+	v := raytracer.NewVector(1, 2, 3)
+	got := v.Normalize().Magnitude()
+	want := 1.0
+
+	if math.Abs(got-want) > raytracer.Epsilon {
 		t.Errorf("got %v want %v", got, want)
 	}
 }

@@ -2,7 +2,7 @@ package raytracer
 
 import "math"
 
-const epsilon float64 = 0.00001
+const Epsilon float64 = 0.00001
 
 type Tuple struct {
 	X float64
@@ -11,9 +11,8 @@ type Tuple struct {
 	W float64
 }
 
-
 func floatEquals(a float64, b float64) bool {
-	return math.Abs(b-a) < epsilon
+	return math.Abs(b-a) < Epsilon
 }
 
 func (a *Tuple) Equals(b *Tuple) bool {
@@ -55,7 +54,7 @@ func (a *Tuple) Negate() *Tuple {
 	a.X *= -1
 	a.Y *= -1
 	a.Z *= -1
-	
+
 	return a
 }
 
@@ -68,9 +67,23 @@ func NewVector(x float64, y float64, z float64) *Tuple {
 }
 
 func ZeroVector() *Tuple {
-	return  NewVector(0, 0, 0)
+	return NewVector(0, 0, 0)
 }
 
 func ZeroPoint() *Tuple {
 	return NewPoint(0, 0, 0)
+}
+
+func (a *Tuple) Magnitude() float64 {
+	return math.Sqrt(a.X*a.X + a.Y*a.Y + a.Z*a.Z + a.W*a.W)
+}
+
+func (a *Tuple) Normalize() *Tuple {
+	m := a.Magnitude()
+	a.W /= m
+	a.X /= m
+	a.Y /= m
+	a.Z /= m
+
+	return a
 }
