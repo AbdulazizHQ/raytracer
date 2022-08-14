@@ -16,9 +16,30 @@ func TestNewColor(t *testing.T) {
 }
 
 func TestColorAdd(t *testing.T) {
-	got1, got2 := raytracer.NewColor(0.9, 0.6, 0.75), raytracer.NewColor(0.7, 0.1, 0.25)
-	got := got1.Add(got2)
+	a, b := raytracer.NewColor(0.9, 0.6, 0.75), raytracer.NewColor(0.7, 0.1, 0.25)
+	got := a.Add(b)
 	want := raytracer.NewColor(1.6, 0.7, 1.0)
+
+	if !got.Equals(want) {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
+func TestColorSubtract(t *testing.T) {
+	a, b := raytracer.NewColor(0.9, 0.6, 0.75), raytracer.NewColor(0.7, 0.1, 0.25)
+	got := a.Subtract(b)
+	want := raytracer.NewColor(0.2, 0.5, 0.5)
+
+	if !got.Equals(want) {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
+func TestColorMultiply(t *testing.T) {
+	a := raytracer.NewColor(0.2, 0.3, 0.4)
+	scaler := 2.0
+	got := a.Multiply(scaler)
+	want := raytracer.NewColor(0.4, 0.6, 0.8)
 
 	if !got.Equals(want) {
 		t.Errorf("got %v want %v", got, want)

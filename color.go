@@ -21,3 +21,15 @@ func (c *Color) Add(c2 *Color) *Color {
 
 	return c
 }
+
+func (c *Color) Subtract(c2 *Color) *Color {
+	c.t = c.t.Sub(c2.t)
+
+	return c
+}
+
+func (c *Color) Multiply(s float64) *Color {
+	c.t = c.t.Scale(s)
+
+	return c
+}
