@@ -35,11 +35,21 @@ func TestColorSubtract(t *testing.T) {
 	}
 }
 
-func TestColorMultiply(t *testing.T) {
+func TestColorScale(t *testing.T) {
 	a := raytracer.NewColor(0.2, 0.3, 0.4)
 	scaler := 2.0
-	got := a.Multiply(scaler)
+	got := a.Scale(scaler)
 	want := raytracer.NewColor(0.4, 0.6, 0.8)
+
+	if !got.Equals(want) {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
+func TestColorMultiply(t *testing.T) {
+	a, b := raytracer.NewColor(1, 0.2, 0.4), raytracer.NewColor(0.9, 1, 0.1)
+	got := a.Multiply(b)
+	want := raytracer.NewColor(0.9, 0.2, 0.04)
 
 	if !got.Equals(want) {
 		t.Errorf("got %v want %v", got, want)
